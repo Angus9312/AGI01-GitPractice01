@@ -1,13 +1,21 @@
+"""
+Module: notebook_pytorch_mnist
+Stage: Notebook
+Author: Angus9312
+Date: 2026-07-15
+Description: train a CNN using pytorch
+"""
+
 # %%
 
 import ssl
 
 import numpy as np
 import torch
+import torch.nn as nn
 import torchvision as tv
 from IPython.display import clear_output
 from matplotlib import pyplot as plt
-from torch import nn
 
 ssl._create_default_https_context = ssl._create_unverified_context
 
@@ -29,8 +37,9 @@ test_data = tv.datasets.MNIST(
 print("Number of samples in train_data is: ", len(train_data))
 print("Number of samples in test_data is: ", len(test_data))
 # %%
-x = train_data.data[0]
-plt.imshow(x)
+
+x = train_data.data[0]  # 讀取訓練集中的第一張圖片
+plt.imshow(x)  # 把圖片顯示出來
 
 
 # %%
@@ -71,13 +80,14 @@ def prepare_images(xt):  # 對圖片進行預處理，以符合PyTorch的格式�
     return out
 
 
+# %%
 model = CNN()  # 建立CNN模組的實例
 epochs = 100  # 定義訓練迴圈
 batch_size = 500  # 定義批次大小
 lr = 1e-3
 opt = torch.optim.Adam(params=model.parameters(), lr=lr)
 lossfn = nn.NLLLoss()
-
+# %%
 losses = []
 acc_cnn = []
 
@@ -106,4 +116,9 @@ for i in range(epochs):
 
 acc_cnn = np.array(acc_cnn)  # 將每一訓練迴圈的預測準確率存進陣列，以便稍後進行視覺化
 losses = np.array(losses)  # 將每一訓練迴圈的損失存進陣列，以便稍後進行視覺化
+# %%
+plt.figure(figsize=(10, 7))
+plt.xlabel("Training Epochs", fontsize=16)
+plt.ylabel("Training accuracy", fontsize=16)
+plt.plot(acc_cnn)
 # %%
