@@ -34,7 +34,6 @@ print("Number of samples in train_data is: ", len(train_data))
 print("Number of samples in test_data is: ", len(test_data))
 # %%
 
-
 x = train_data.data[0]  # 讀取訓練集中的第一張圖片
 plt.imshow(x)  # 把圖片顯示出來
 # %%
