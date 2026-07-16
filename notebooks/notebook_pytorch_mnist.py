@@ -80,6 +80,12 @@ def prepare_images(xt):  # 對圖片進行預處理，以符合PyTorch的格式�
     return out
 
 
+a = train_data.data[0:5].detach()  # 讀取訓練集中的前五張圖片
+b = prepare_images(a)  # 對圖片進行預處理
+print(a.shape)
+print(b.shape)  # 可以看到，經過prepare_images( )後，圖片的形狀已經符合PyTorch的格式需求
+
+
 # %%
 model = CNN()  # 建立CNN模組的實例
 epochs = 100  # 定義訓練迴圈
